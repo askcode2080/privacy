@@ -1,0 +1,11 @@
+查看当前策略
+Get-ExecutionPolicy
+修改策略
+Set-ExecutionPolicy RemoteSigned
+验证修改
+Get-ExecutionPolicy
+策略说明
+如果显示为 Restricted，说明脚本被禁止执行
+RemoteSigned（推荐）：允许运行本地未签名脚本，但远程脚本必须有签名
+AllSigned：所有脚本必须有数字签名，安全性高
+Unrestricted（不推荐）：允许运行所有脚本，包括未签名的，存在安全风险 

@@ -1,0 +1,48 @@
+py --version
+pip --version
+node -v
+npm -v
+
+广告拦截插件
+https://adguard.com/zh_cn/adguard-browser-extension/overview.html
+
+关闭vscode受限模式 security.workspace.trust
+
+阿里云公共DNS地址
+IPv4：223.5.5.5和223.6.6.6
+IPv6：2400:3200::1和2400:3200:baba::1
+
+安全dns
+首选
+1.1.1.1
+备选
+1.0.0.1
+首选
+2606:4700:4700::1111
+备选
+2606:4700:4700::1001
+
+国内模型快速下载地址
+hf-mirror.com
+
+🪟 如果是 Windows Sandbox 弹窗
+
+Windows Sandbox 默认启用了智能应用控制 (SAC)，它会拦截未签名的程序，导致每次运行都弹出“应用程序控制策略已阻止此文件”的提示。
+
+解决方法是通过一个 .wsb 配置文件来启动沙盒，从而临时禁用 SAC。
+
+操作步骤：
+
+1. 新建配置文件：在宿主机桌面新建一个文本文档，重命名为 sandbox.wsb（确保扩展名是 .wsb 而非 .txt）。
+2. 写入代码：用记事本打开该文件，复制并粘贴以下内容后保存：
+   ```xml
+   <Configuration>
+     <LogonCommand>
+       <Command>reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy" /v VerifiedAndReputablePolicyState /t REG_DWORD /d 0 /f</Command>
+       <Command>CiTool.exe -r</Command>
+     </LogonCommand>
+   </Configuration>
+   ```
+3. 使用新配置：以后双击这个 sandbox.wsb 文件来启动沙盒，本次会话中就不会再弹出拦截提示了。
+
+注意：由于沙盒在关闭时会重置所有设置，因此每次都需要通过这个 .wsb 文件来启动才能生效。

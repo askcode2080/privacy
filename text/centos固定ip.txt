@@ -1,0 +1,58 @@
+如果虚拟机ssh链接慢
+修改etc/ssh/sshd_config文件中的UseDNS为no并解除注释
+然后执行代码
+systemctl restart sshd
+
+网络配置文件路径  /etc/sysconfig/network-scripts/ifcfg-ens33 
+以下内容仅供参考
+TYPE="Ethernet"
+PROXY_METHOD="none"
+BROWSER_ONLY="no"
+BOOTPROTO="static"         # 将 DHCP 改为 static 或 none
+DEFROUTE="yes"
+IPV4_FAILURE_FATAL="no"
+IPV6INIT="yes"
+IPV6_AUTOCONF="yes"
+IPV6_DEFROUTE="yes"
+IPV6_FAILURE_FATAL="no"
+IPV6_ADDR_GEN_MODE="stable-privacy"
+NAME="ens33"
+UUID="accb27a4-be18-4fb5-9223-837e3f5c02df"
+DEVICE="ens33"
+ONBOOT="yes"
+
+# 以下是新增或需要修改的静态IP相关配置项：
+IPADDR=192.168.200.128           # 请替换为您要设置的静态IP地址
+NETMASK=255.255.255.0          # 子网掩码，也可以使用 PREFIX=24
+GATEWAY=192.168.200.2            # 网关地址，请根据您的网络环境填写
+DNS1=1.1.1.1                   # 首选DNS服务器
+DNS2=180.76.76.76                   # 备用DNS服务器（可选）
+
+修改完成后重启网络
+systemctl restart network
+
+
+ubuntu设置固定ip 文件目录 /etc/netplan/
+
+# This is the network config written by 'subiquity'
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens33:  # 请务必确认这是你服务器正确的网卡名称
+      dhcp4: no
+      addresses: [192.168.200.129/24]
+      routes:
+        - to: 0.0.0.0/0  # 关键修改：将"default"改为"0.0.0.0/0"
+          via: 192.168.200.1  # 请确认这是你网络的正确网关地址
+      nameservers:
+        addresses: [8.8.8.8, 114.114.114.114]
+
+# 测试配置语法（会等待你确认，超时自动回滚）
+sudo netplan try
+
+# 或直接应用配置（无确认）
+sudo netplan apply
+
+# 验证
+ip addr show ens33

@@ -1,0 +1,7 @@
+处理器:     12th Gen Intel(R) Core(TM) i7-12700F; 
+内存:        16G (3200MHz) ; 16G (3200MHz) ; 共32G; 
+主板:        华硕 PRIME B660M-K D4; 
+显卡:        Intel(R) Arc(TM) A770 Graphics; 
+硬盘:        Colorful CN600 1TB932G; Samsung SSD 980 PRO 1TB932G; 
+声卡:        High Definition Audio 设备; 
+网卡:        Realtek PCIe GBE Family Controller; VMware Virtual Ethernet Adapter for VMnet1; VMware Virtual Ethernet Adapter for VMnet8; Software Loopback Interface 1; 
